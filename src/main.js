@@ -5,7 +5,7 @@ if (import.meta.hot) {
   })
 };
 try {
-  (await (import("https://esm.sh/eruda"))).default.init()
+  // (await (import("https://esm.sh/eruda"))).default.init()
 } catch {}
 
 import './UI/init.js'
