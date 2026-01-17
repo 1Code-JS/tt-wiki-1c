@@ -6,27 +6,55 @@ export default (()=>{
     static styles = (css`
       :host {
         display: contents;
-        padding: 3px 8px;
         overflow: hidden;
         border-radius: 5px;
-      }
-      button {
-        padding: inherit;
-        width: inherit;
-        height: inherit;
-        margin: inherit;
-        overflow: inherit;
-        background-color: #444;
-        border: 1px solid #ffffff7f;
-        border-radius: inherit;
-        &:hover {
-          background-color: #555;
-        }
-        &:active {
-          background-color: #666;
-        }
-        &:focus {
-          border-color: #ffffff;
+        min-width: 25px;
+        min-height: 25px;
+        button {
+          all: inherit;
+          ${css``/*
+          height: inherit;
+          min-width: inherit;
+          min-height: inherit;
+          max-width: inherit;
+          max-height: inherit;
+          margin: inherit;
+          overflow: inherit;
+          border-radius: inherit;
+          */}
+          padding: 0px;
+          display: flex;
+          align-items: center;
+          background-color: #444;
+          border: 1px solid #ffffff7f;
+          
+          #icon {
+            overflow: scroll;
+            width: var(--button-1c-icon-width, unset);
+            height: var(--button-1c-icon-height, unset);
+            min-width: inherit;
+            min-height: inherit;
+            ${css``/*background-color: #000;*/}
+            padding: 2px;
+            border: 1px solid #ffffff7f;
+          }
+          #content {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            min-height: inherit;
+            padding: 0px 2px;
+          }
+          
+          &:hover {
+            background-color: #555;
+          }
+          &:active {
+            background-color: #666;
+          }
+          &:focus {
+            border-color: #ffffff;
+          }
         }
       }
     `)
@@ -48,7 +76,12 @@ export default (()=>{
     render() {
       return (html`
         <button>
-          <slot/>
+          <div id="icon">
+            <slot name="icon"/>
+          </div>
+          <div id="content">
+            <slot/>
+          </div>
         </button>
       `)
     }

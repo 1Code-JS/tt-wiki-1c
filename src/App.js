@@ -1,6 +1,6 @@
 import './assets/style.css'
 
-import {html} from 'lit'
+import {html,css} from 'lit'
 import {unsafeHTML as lit_unsafeHTML} from 'lit/directives/unsafe-html.js';
 import {until as lit_until} from 'lit/directives/until.js';
 
@@ -239,9 +239,8 @@ const pages = (()=>{
   return async ()=>{
     if (typeof obj !== "object") {
       const pages = await fetch("https://raw.githubusercontent.com/1Code-JS/tt-wiki-1c/wiki/pages.json").then((r)=>r.json())
-      const {data:list} = pages
-      for (const fn in list) {
-        const data = list[fn]
+      for (const fn in pages) {
+        const data = pages[fn]
         const timeCreated = data.timeCreated ?? data["time created"]
         delete data["time created"]
         const timeModified = data.timeModified ?? data["time modified"]
@@ -348,16 +347,14 @@ export const App = async () => {
   }
   
   const timeModified = async ()=>{
-    return await (async (pages)=>{
-      let {[`${pageName}.md`]:data} = pages.data
-      if (data) {
-        const {timeModified} = data
-        return (
-          `Last edited on ${timeModified.toDateString()} \
-          ${timeModified.toTimeString().match(/\d\d:\d\d:\d\d/)}`
-        )
-      }
-    })(await pages())
+    let {[pageName]:data} = await pages()
+    if (data) {
+      const {timeModified} = data
+      return (
+        `Last edited on ${timeModified.toDateString()} \
+        ${timeModified.toTimeString().match(/\d\d:\d\d:\d\d/)}`
+      )
+    }
   }
   
   return (html`
@@ -369,13 +366,13 @@ export const App = async () => {
     </div>
     <div id="tlbr">
       <p id="title">${pageName}</p>
-      <a id="gh-url" href=${`https://github.com/1Code-JS/tt-wiki-1c/wiki/${pageName}/_edit`}>
-        <button-1c style="border-radius: 100%; width: 30px; height: 30px"></button-1c>
+      <a id="gh-url" href="${`https://github.com/1Code-JS/tt-wiki-1c/wiki/${pageName}/_edit`}">
+        <button-1c style="border-radius: 100%; width: 30px; height: 30px"/>
       </a>
     </div>
     <div>
       ${lit_until(pages().then((p)=>{
-        return Object.keys(p.data).map((v)=>{
+        return Object.keys(p).map((v)=>{
           return html`
             <div>${v}</div>
           `
@@ -388,7 +385,7 @@ export const App = async () => {
     </p>
     <spoiler-1c>
       <div slot="summary">856</div>
-      <p>856</p>
+      <pre><code>${`${(css`* {}`).constructor}`}</code></pre>
     </spoiler-1c>
   `)
 }
