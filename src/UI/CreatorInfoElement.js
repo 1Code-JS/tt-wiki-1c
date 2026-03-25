@@ -1,6 +1,6 @@
-import {flag} from "country-emoji"
+import { flag } from "country-emoji"
 
-export class CreatorInfoElement extends HTMLElement {
+export default class CreatorInfoElement extends HTMLElement {
 	constructor() {
 		super()
 		this.#flagE()

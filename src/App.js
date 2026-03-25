@@ -6,7 +6,7 @@ import {until as lit_until} from 'lit/directives/until.js';
 
 const parseMarkdown = await (async ()=>{
   const md = new (await import("markdown-it")).default({
-    // html:true,
+    html:true,
     linkify:true,
     breaks:true,
     highlight: await (async ()=>{
@@ -23,7 +23,7 @@ const parseMarkdown = await (async ()=>{
   })
   
   const render = (text,inline,a)=>{
-    if (a) text = (`
+    if (0 && a) text = (`
 :::: spoiler **n** \`3\`
 
 ii
@@ -286,7 +286,7 @@ export const App = async () => {
   const md = async ()=>{
     const r = await new Promise((s)=>{
       const fileUrl = `https://raw.githubusercontent.com/1Code-JS/tt-wiki-1c/wiki/pages/${pageName}.md`
-      if (false) {
+      if (1 || false) {
         s(fetch(fileUrl,{cache:"reload"}))
         return
       }

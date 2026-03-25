@@ -1,7 +1,7 @@
 import YAML from "yaml"
-import {CreatorInfoElement} from '/CreatorInfoElement.js'
+import CreatorInfoElement from './CreatorInfoElement.js'
 
-export class CreatorListElement extends HTMLElement {
+export default class CreatorListElement extends HTMLElement {
 	constructor() {
 		super()
 		this.reload()
